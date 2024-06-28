@@ -152,6 +152,8 @@ To create a checkpoint (assuming m5_checkpoint_addr() is already included in the
 cd /workspaces/gem5-bootcamp-env
 wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/square-cpt/square.cpp
 mv square.cpp gem5-resouces/src/gpu/square/
+wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/mi300.py
+mv mi300.py gem5/configs/example/gpufs/
 cd /workspaces/gem5-bootcamp-env/gem5-resources/src/gpu/square
 docker run --rm -v /workspaces/gem5-bootcamp-env:/workspaces/gem5-bootcamp-env -w $(pwd) ghcr.io/gem5/gpu-fs:latest make
 
