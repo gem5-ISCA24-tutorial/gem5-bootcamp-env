@@ -144,7 +144,7 @@ docker run --rm -v /workspaces/gem5-bootcamp-env:/workspaces/gem5-bootcamp-env -
 
 # To run square in FS mode
 cd /workspaces/gem5-bootcamp-env
-/usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./materials/isca24/gpu-test.py --no-kvm-perf
+/usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./gem5-resources/src/gpu/square/bin/square --no-kvm-perf
 ```
 To create a checkpoint (assuming m5_checkpoint_addr() is already included in the application)
 ```sh
