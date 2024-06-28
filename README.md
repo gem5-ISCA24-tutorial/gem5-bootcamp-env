@@ -131,16 +131,32 @@ docker run -v $PWD:$PWD -v /usr/local/bin:/usr/local/bin -w $PWD ghcr.io/gem5/gc
 
 ## Note on running GPU FS
 
-You need not use docker to run simulations in GPU FS mode.
+You need not use docker to run simulations in GPU FS mode. You still need docker to compile applications like square. We will be simulating AMD's latest GPU, MI300, in FS mode
 Below is an example command
 
 ```sh
+# To compile square
+cd /workspaces/gem5-bootcamp-env
+wget wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/Makefile
+mv Makefile gem5-resources/src/gpu/square/Makefile
+cd /workspaces/gem5-bootcamp-env/gem5-resources/src/gpu/square
+docker run --rm -v /workspaces/gem5-bootcamp-env:/workspaces/gem5-bootcamp-env -w $(pwd) ghcr.io/gem5/gpu-fs:latest make
+
+# To run square in FS mode
 cd /workspaces/gem5-bootcamp-env
 /usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./materials/isca24/gpu-test.py --no-kvm-perf
 ```
 To create a checkpoint (assuming m5_checkpoint_addr() is already included in the application)
 ```sh
-# To create
+# To recompile square so that it creates a checkpoint
+cd /workspaces/gem5-bootcamp-env
+wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/square-cpt/square.cpp
+mv square.cpp gem5-resouces/src/gpu/square/
+cd /workspaces/gem5-bootcamp-env/gem5-resources/src/gpu/square
+docker run --rm -v /workspaces/gem5-bootcamp-env:/workspaces/gem5-bootcamp-env -w $(pwd) ghcr.io/gem5/gpu-fs:latest make
+
+# To create checkpoint
+cd /workspaces/gem5-bootcamp-env
 /usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./gem5-resources/src/gpu/square/bin/square --no-kvm-perf --checkpoint-dir ./m5out
 
 
