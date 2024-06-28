@@ -128,3 +128,22 @@ Below is an example command
 ```sh
 docker run -v $PWD:$PWD -v /usr/local/bin:/usr/local/bin -w $PWD ghcr.io/gem5/gcn-gpu:v24-0 gem5-vega-se gem5/configs/example/apu_se.py -n 3 -c square
 ```
+
+## Note on running GPU FS
+
+You need not use docker to run simulations in GPU FS mode.
+Below is an example command
+
+```sh
+cd /workspaces/gem5-bootcamp-env
+/usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./materials/isca24/gpu-test.py --no-kvm-perf
+```
+To create a checkpoint (assuming m5_checkpoint_addr() is already included in the application)
+```sh
+# To create
+/usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./gem5-resources/src/gpu/square/bin/square --no-kvm-perf --checkpoint-dir ./m5out
+
+
+# To restore
+/usr/local/bin/gem5-vega gem5/configs/example/gpufs/mi200.py --kernel ./vmlinux-gpu-ml-isca --disk-image ./x86-ubuntu-gpu-ml-isca --app ./gem5-resources/src/gpu/square/bin/square --no-kvm-perf --restore-dir ./m5out
+```
