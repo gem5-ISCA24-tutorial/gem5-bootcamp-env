@@ -137,7 +137,7 @@ Below is an example command
 ```sh
 # To compile square
 cd /workspaces/gem5-bootcamp-env
-wget wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/Makefile
+wget https://cs.wisc.edu/~ramadas/gem5-isca24/gpu-fs/Makefile
 mv Makefile gem5-resources/src/gpu/square/Makefile
 cd /workspaces/gem5-bootcamp-env/gem5-resources/src/gpu/square
 docker run --rm -v /workspaces/gem5-bootcamp-env:/workspaces/gem5-bootcamp-env -w $(pwd) ghcr.io/gem5/gpu-fs:latest make
